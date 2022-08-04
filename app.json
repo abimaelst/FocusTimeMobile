@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "FocusTime",
+    "slug": "FocusTime",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
