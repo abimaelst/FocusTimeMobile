@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { RoundedButton } from '../components/RoundedButton';
-import { color } from '../utils/color';
+import { colors } from '../utils/colors';
+import { spacing } from '../utils/sizes';
 
 export const Focus = ({ addSubject }) => {
   const [subject, setSubject] = useState(null);
@@ -41,9 +42,9 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    marginRight: 10,
+    marginRight: spacing.sm,
   },
   text: {
-    color: color.white,
+    color: colors.white,
   },
 });
