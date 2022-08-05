@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, Platform, StatusBar } from 'react-native';
-import { Focus } from './src/features/focus';
+import { Focus } from './src/features/Focus';
 
 export function App() {
   return (
