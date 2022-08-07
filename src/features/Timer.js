@@ -21,14 +21,17 @@ const PATTERN = [
 export const Timer = ({ focusSubject, clearSubject }) => {
   const [isStarted, setIsStarted] = useState(false);
   const [progress, setProgress] = useState(1);
-  const [minutes, setMinutes] = useState(20);
+  const [minutes, setMinutes] = useState(0.1);
 
   function handleProgress(timer) {
     setProgress(timer / 100);
   }
 
-  function handleEnd() {
+  function handleEnd(reset) {
     Vibration.vibrate(PATTERN);
+    setIsStarted(false);
+    setProgress(1);
+    reset();
   }
 
   function handlePress() {

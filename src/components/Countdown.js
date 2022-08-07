@@ -17,11 +17,15 @@ export const Countdown = ({
   const [millis, setMillis] = useState(minutesToMillis(minutes));
   const interval = React.useRef(null);
 
+  const reset = () => {
+    setMillis(minutesToMillis(minutes));
+  };
+
   const countDown = () =>
     setMillis((time) => {
       if (time === 0) {
         clearInterval(interval.current);
-        onEnd();
+        onEnd(reset);
         return time;
       }
       const timeLeft = time - 1000;
