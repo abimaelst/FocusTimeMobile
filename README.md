@@ -2,9 +2,9 @@
 
 Focus Time is an app mobile for focusing using Pomodoro's technique.
 
-##Tech
+## Tech
 
-- [React Native] (https://reactnative.dev/)
+- [React Native](https://reactnative.dev/)
 
 ## Installation
 
