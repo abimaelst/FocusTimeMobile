@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { StyleSheet, SafeAreaView, Platform, StatusBar } from 'react-native';
 import { Focus } from './src/features/Focus';
+import { FocusHistory } from './src/features/FocusHistory';
 import { Timer } from './src/features/Timer';
 import { colors } from './src/utils/colors';
 
 export function App() {
   const [currentSubject, setCurrentSubject] = useState(null);
+  const [history, setHistory] = useState([]);
 
-  function handleOnTime() {}
+  function handleOnTime(focusHasEnded) {
+    setHistory(() => {
+      return [...history, focusHasEnded];
+    });
+  }
 
   function handleClearSubject() {
     setCurrentSubject(null);
@@ -16,11 +22,14 @@ export function App() {
   return (
     <SafeAreaView style={styles.container}>
       {!currentSubject ? (
-        <Focus addSubject={setCurrentSubject} />
+        <>
+          <Focus addSubject={setCurrentSubject} />
+          <FocusHistory history={history} />
+        </>
       ) : (
         <Timer
           focusSubject={currentSubject}
-          onTimeEnd={handleOnTime}
+          onTimerEnd={handleOnTime}
           clearSubject={handleClearSubject}
         />
       )}
