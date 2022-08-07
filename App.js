@@ -5,11 +5,13 @@ import { Timer } from './src/features/Timer';
 import { colors } from './src/utils/colors';
 
 export function App() {
-  const [currentSubject, setCurrentSubject] = useState('test');
+  const [currentSubject, setCurrentSubject] = useState(null);
 
   function handleOnTime() {}
 
-  function handleClearSubject() {}
+  function handleClearSubject() {
+    setCurrentSubject(null);
+  }
 
   return (
     <SafeAreaView style={styles.container}>

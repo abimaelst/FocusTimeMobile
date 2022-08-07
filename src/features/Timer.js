@@ -1,29 +1,51 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Vibration } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import { Countdown } from '../components/Countdown';
 import { RoundedButton } from '../components/RoundedButton';
 import { colors } from '../utils/colors';
 import { paddingSizes, spacing } from '../utils/sizes';
+import { Timing } from './Timing';
 
-export const Timer = ({ focusSubject }) => {
+const ONE_SECOND_IN_MS = 1000;
+
+const PATTERN = [
+  1 * ONE_SECOND_IN_MS,
+  1 * ONE_SECOND_IN_MS,
+  1 * ONE_SECOND_IN_MS,
+  1 * ONE_SECOND_IN_MS,
+  1 * ONE_SECOND_IN_MS,
+  1 * ONE_SECOND_IN_MS,
+];
+
+export const Timer = ({ focusSubject, clearSubject }) => {
   const [isStarted, setIsStarted] = useState(false);
   const [progress, setProgress] = useState(1);
+  const [minutes, setMinutes] = useState(20);
 
   function handleProgress(timer) {
     setProgress(timer / 100);
   }
 
-  function handleEnd() {}
+  function handleEnd() {
+    Vibration.vibrate(PATTERN);
+  }
 
   function handlePress() {
     setIsStarted(!isStarted);
   }
 
+  const handleChangeMinutes = (min) => () => {
+    setProgress(1);
+    setIsStarted(false);
+    setMinutes(min);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.countdown}>
         <Countdown
+          minutes={minutes}
           isPaused={!isStarted}
           onProgress={handleProgress}
           onEnd={handleEnd}
@@ -41,8 +63,14 @@ export const Timer = ({ focusSubject }) => {
         />
       </View>
       <View style={styles.buttonWrapper}>
+        <Timing onChangeTime={handleChangeMinutes} />
+      </View>
+      <View style={styles.buttonWrapper}>
         {!isStarted && <RoundedButton title="start" onPress={handlePress} />}
         {isStarted && <RoundedButton title="pause" onPress={handlePress} />}
+      </View>
+      <View style={styles.clearSubject}>
+        <RoundedButton size={50} title="-" onPress={clearSubject} />
       </View>
     </View>
   );
@@ -53,13 +81,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   countdown: {
-    flex: 0.5,
+    flex: 0.4,
     alignItems: 'center',
     padding: paddingSizes.md,
     justifyContent: 'center',
   },
   buttonWrapper: {
-    flex: 0.3,
+    flex: 0.25,
     flexDirection: 'row',
     padding: paddingSizes.sm,
     alignItems: 'center',
@@ -79,5 +107,11 @@ const styles = StyleSheet.create({
   },
   progressBarContainer: {
     paddingTop: paddingSizes.sm,
+  },
+  clearSubject: {
+    flexDirection: 'row',
+    paddingBottom: 25,
+    paddingTop: 25,
+    justifyContent: 'center',
   },
 });
